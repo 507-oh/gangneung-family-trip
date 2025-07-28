@@ -301,6 +301,17 @@
             text-align: center;
         }
 
+        .info-value a {
+            color: #2196F3 !important;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-value a:hover {
+            color: #1976D2 !important;
+            text-decoration: underline;
+        }
+
         .emergency-contact {
             background: #ffebee;
             border-left: 4px solid #f44336;
@@ -396,6 +407,16 @@
             <div class="info-card">
                 <h3 style="margin-bottom: 15px; color: #4CAF50;">🏡 쉬어가는집펜션</h3>
                 <div class="info-row">
+                    <span class="info-label">주소</span>
+                    <span class="info-value">
+                        <a href="https://map.naver.com/p/search/강원특별자치도 강릉시 연곡면 성안길 20-11" 
+                           target="_blank" 
+                           style="color: #2196F3; text-decoration: none;">
+                           📍 강원특별자치도 강릉시 연곡면 성안길 20-11
+                        </a>
+                    </span>
+                </div>
+                <div class="info-row">
                     <span class="info-label">위치</span>
                     <span class="info-value">강릉 (독채)</span>
                 </div>
@@ -461,11 +482,23 @@
                 </div>
                 <div class="info-row">
                     <span class="info-label">대여주소</span>
-                    <span class="info-value">서울시 용산구 청파로 369 1층</span>
+                    <span class="info-value">
+                        <a href="https://map.naver.com/p/search/서울시 용산구 청파로 369" 
+                           target="_blank" 
+                           style="color: #2196F3; text-decoration: none;">
+                           📍 서울시 용산구 청파로 369 1층
+                        </a>
+                    </span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">반납주소</span>
-                    <span class="info-value">서울시 용산구 청파로 369 1층</span>
+                    <span class="info-value">
+                        <a href="https://map.naver.com/p/search/서울시 용산구 청파로 369" 
+                           target="_blank" 
+                           style="color: #2196F3; text-decoration: none;">
+                           📍 서울시 용산구 청파로 369 1층
+                        </a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -619,78 +652,102 @@
 
         <!-- 준비물 탭 -->
         <div id="checklist" class="tab-content">
-            <div class="add-item">
-                <input type="text" id="newItem" placeholder="준비물 추가...">
-                <button onclick="addChecklistItem()">추가</button>
-            </div>
-
+            <!-- 의류 섹션 -->
             <h4 style="margin-bottom: 10px; color: #4CAF50;">👕 의류</h4>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>여름옷 (2일치)</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+            <div class="add-item">
+                <input type="text" id="newClothingItem" placeholder="의류 추가...">
+                <button onclick="addItemToCategory('clothing')">추가</button>
             </div>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>속옷 & 양말</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>잠옷</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>수영복</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+            <div id="clothingList">
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>여름옷 (2일치)</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>속옷 & 양말</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>잠옷</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>수영복</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
             </div>
 
+            <!-- 해변용품 섹션 -->
             <h4 style="margin: 20px 0 10px 0; color: #4CAF50;">🏖️ 해변용품</h4>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>썬크림</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+            <div class="add-item">
+                <input type="text" id="newBeachItem" placeholder="해변용품 추가...">
+                <button onclick="addItemToCategory('beach')">추가</button>
             </div>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>선글라스</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>비치타올</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>물놀이 용품</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+            <div id="beachList">
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>썬크림</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>선글라스</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>비치타올</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>물놀이 용품</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
             </div>
 
+            <!-- 생필품 섹션 -->
             <h4 style="margin: 20px 0 10px 0; color: #4CAF50;">💊 생필품</h4>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>세면용품</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+            <div class="add-item">
+                <input type="text" id="newEssentialItem" placeholder="생필품 추가...">
+                <button onclick="addItemToCategory('essential')">추가</button>
             </div>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>상비약</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>핸드폰 충전기</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" onchange="toggleCheck(this)">
-                <span>카메라</span>
-                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+            <div id="essentialList">
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>세면용품</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>상비약</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>핸드폰 충전기</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <span>카메라</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
+                </div>
             </div>
 
-            <div id="customChecklist"></div>
+            <!-- 기타 섹션 -->
+            <h4 style="margin: 20px 0 10px 0; color: #4CAF50;">📦 기타</h4>
+            <div class="add-item">
+                <input type="text" id="newOtherItem" placeholder="기타 준비물 추가...">
+                <button onclick="addItemToCategory('other')">추가</button>
+            </div>
+            <div id="otherList">
+                <!-- 기타 아이템들이 여기에 추가됩니다 -->
+            </div>
         </div>
 
         <!-- 예산 탭 -->
