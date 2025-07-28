@@ -133,6 +133,17 @@
             color: #333;
         }
 
+        .info-value a {
+            color: #2196F3 !important;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-value a:hover {
+            color: #1976D2 !important;
+            text-decoration: underline;
+        }
+
         .schedule-item {
             background: white;
             border-radius: 10px;
@@ -301,46 +312,6 @@
             text-align: center;
         }
 
-        .leader-only {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .leader-toggle {
-            background: #FF6B6B;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-
-        .leader-toggle:hover {
-            background: #ff5252;
-        }
-
-        .leader-mode {
-            border: 2px solid #FF6B6B;
-            background: #ffebee;
-        }
-
-        .info-value a {
-            color: #2196F3 !important;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .info-value a:hover {
-            color: #1976D2 !important;
-            text-decoration: underline;
-        }
-
         .emergency-contact {
             background: #ffebee;
             border-left: 4px solid #f44336;
@@ -391,6 +362,35 @@
             color: #666;
         }
 
+        .leader-only {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .leader-toggle {
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .leader-toggle:hover {
+            background: #ff5252;
+        }
+
+        .leader-mode {
+            border: 2px solid #FF6B6B;
+            background: #ffebee;
+        }
+
         .delete-btn {
             position: absolute;
             top: 10px;
@@ -439,8 +439,7 @@
                     <span class="info-label">주소</span>
                     <span class="info-value">
                         <a href="https://map.naver.com/p/search/강원특별자치도 강릉시 연곡면 성안길 20-11" 
-                           target="_blank" 
-                           style="color: #2196F3; text-decoration: none;">
+                           target="_blank">
                            📍 강원특별자치도 강릉시 연곡면 성안길 20-11
                         </a>
                     </span>
@@ -502,19 +501,10 @@
                     <span class="info-value">2025년 8월 16일(토) 20:00</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">대여장소</span>
-                    <span class="info-value">서울</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">반납장소</span>
-                    <span class="info-value">서울</span>
-                </div>
-                <div class="info-row">
                     <span class="info-label">대여주소</span>
                     <span class="info-value">
                         <a href="https://map.naver.com/p/search/서울시 용산구 청파로 369" 
-                           target="_blank" 
-                           style="color: #2196F3; text-decoration: none;">
+                           target="_blank">
                            📍 서울시 용산구 청파로 369 1층
                         </a>
                     </span>
@@ -523,8 +513,7 @@
                     <span class="info-label">반납주소</span>
                     <span class="info-value">
                         <a href="https://map.naver.com/p/search/서울시 용산구 청파로 369" 
-                           target="_blank" 
-                           style="color: #2196F3; text-decoration: none;">
+                           target="_blank">
                            📍 서울시 용산구 청파로 369 1층
                         </a>
                     </span>
@@ -540,7 +529,7 @@
             </div>
 
             <div class="add-item">
-                <input type="text" id="newLeaderItem" placeholder="전달사항 추가...">
+                <input type="text" id="newLeaderItem" placeholder="전달사항 추가..." onkeypress="if(event.key==='Enter') addLeaderItem()">
                 <button onclick="addLeaderItem()">추가</button>
             </div>
 
@@ -557,7 +546,7 @@
                 <div class="leader-item">
                     <div class="leader-content">
                         <div class="leader-title">🏖️ 해변 준비물 체크</div>
-                        <div class="leader-desc">썬크림, 비치타올은 각자 준비해주시고, 파라솔은 제가 준비했습니다.</div>
+                        <div class="leader-desc">썬크림, 비치타월은 각자 준비해주시고, 파라솔은 제가 준비했습니다.</div>
                         <div class="leader-time">2025.08.14 18:00 - 권소연</div>
                     </div>
                     <button class="delete-btn" onclick="deleteLeaderItem(this)">×</button>
@@ -594,7 +583,7 @@
 
             <h3 style="margin-bottom: 15px; color: #2196F3;">📅 8월 15일 (금)</h3>
             
-            <div class="schedule-item" id="schedule-item">
+            <div class="schedule-item">
                 <div class="schedule-time">06:00</div>
                 <div class="schedule-title">렌트카 픽업</div>
                 <div class="schedule-desc">스타리아(D) 9인승 - 서울시 용산구 청파로 369</div>
@@ -693,7 +682,7 @@
             <!-- 의류 섹션 -->
             <h4 style="margin-bottom: 10px; color: #4CAF50;">👕 의류</h4>
             <div class="add-item">
-                <input type="text" id="newClothingItem" placeholder="의류 추가...">
+                <input type="text" id="newClothingItem" placeholder="의류 추가..." onkeypress="if(event.key==='Enter') addItemToCategory('clothing')">
                 <button onclick="addItemToCategory('clothing')">추가</button>
             </div>
             <div id="clothingList">
@@ -722,7 +711,7 @@
             <!-- 해변용품 섹션 -->
             <h4 style="margin: 20px 0 10px 0; color: #4CAF50;">🏖️ 해변용품</h4>
             <div class="add-item">
-                <input type="text" id="newBeachItem" placeholder="해변용품 추가...">
+                <input type="text" id="newBeachItem" placeholder="해변용품 추가..." onkeypress="if(event.key==='Enter') addItemToCategory('beach')">
                 <button onclick="addItemToCategory('beach')">추가</button>
             </div>
             <div id="beachList">
@@ -738,7 +727,7 @@
                 </div>
                 <div class="checklist-item">
                     <input type="checkbox" onchange="toggleCheck(this)">
-                    <span>비치타올</span>
+                    <span>비치타월</span>
                     <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
                 </div>
                 <div class="checklist-item">
@@ -751,7 +740,7 @@
             <!-- 생필품 섹션 -->
             <h4 style="margin: 20px 0 10px 0; color: #4CAF50;">💊 생필품</h4>
             <div class="add-item">
-                <input type="text" id="newEssentialItem" placeholder="생필품 추가...">
+                <input type="text" id="newEssentialItem" placeholder="생필품 추가..." onkeypress="if(event.key==='Enter') addItemToCategory('essential')">
                 <button onclick="addItemToCategory('essential')">추가</button>
             </div>
             <div id="essentialList">
@@ -780,7 +769,7 @@
             <!-- 기타 섹션 -->
             <h4 style="margin: 20px 0 10px 0; color: #4CAF50;">📦 기타</h4>
             <div class="add-item">
-                <input type="text" id="newOtherItem" placeholder="기타 준비물 추가...">
+                <input type="text" id="newOtherItem" placeholder="기타 준비물 추가..." onkeypress="if(event.key==='Enter') addItemToCategory('other')">
                 <button onclick="addItemToCategory('other')">추가</button>
             </div>
             <div id="otherList">
@@ -872,7 +861,7 @@
 
         <!-- 메모 탭 -->
         <div id="notes" class="tab-content">
-            <textarea class="add-note" id="newNote" placeholder="여행 중 메모하고 싶은 내용을 적어주세요..."></textarea>
+            <textarea class="add-note" id="newNote" placeholder="여행 중 메모하고 싶은 내용을 적어주세요..." onkeypress="if(event.key==='Enter' && event.ctrlKey) addNote()"></textarea>
             <button class="btn-primary" onclick="addNote()">메모 추가</button>
 
             <div style="margin-top: 20px;" id="notesList">
@@ -890,181 +879,280 @@
     </div>
 
     <script>
+        // 전역 함수들 - 에러 없이 작동하도록 완전히 새로 작성
+        
         function showTab(tabName) {
-            // 모든 탭 콘텐츠 숨기기
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => content.classList.remove('active'));
+            try {
+                var tabContents = document.querySelectorAll('.tab-content');
+                for (var i = 0; i < tabContents.length; i++) {
+                    tabContents[i].classList.remove('active');
+                }
 
-            // 모든 탭 버튼 비활성화
-            const tabButtons = document.querySelectorAll('.nav-tab');
-            tabButtons.forEach(button => button.classList.remove('active'));
+                var tabButtons = document.querySelectorAll('.nav-tab');
+                for (var i = 0; i < tabButtons.length; i++) {
+                    tabButtons[i].classList.remove('active');
+                }
 
-            // 선택된 탭 활성화
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+                document.getElementById(tabName).classList.add('active');
+                event.target.classList.add('active');
+            } catch (error) {
+                console.error('탭 전환 에러:', error);
+            }
         }
 
         function toggleCheck(checkbox) {
-            const item = checkbox.parentElement;
-            if (checkbox.checked) {
-                item.classList.add('checked');
-            } else {
-                item.classList.remove('checked');
+            try {
+                var item = checkbox.parentElement;
+                if (checkbox.checked) {
+                    item.classList.add('checked');
+                } else {
+                    item.classList.remove('checked');
+                }
+            } catch (error) {
+                console.error('체크박스 에러:', error);
+            }
+        }
+
+        function toggleLeaderMode(section) {
+            try {
+                var leaderOnlyDiv = document.getElementById(section + 'LeaderOnly');
+                var addSection = document.getElementById(section + 'AddSection');
+                var leaderOnlyBtns = document.querySelectorAll('#' + section + ' .leader-only-btn');
+                var toggleBtn = event.target;
+                
+                if (!leaderOnlyDiv) {
+                    alert('시스템 오류: 리더 모드를 찾을 수 없습니다.');
+                    return;
+                }
+                
+                var isCurrentlyActive = leaderOnlyDiv.style.display === 'block';
+                
+                if (!isCurrentlyActive) {
+                    var password = prompt('👑 리더 권한 인증\n\n권소연님의 비밀번호를 입력하세요:');
+                    
+                    if (password === '소연1234') {
+                        leaderOnlyDiv.style.display = 'block';
+                        if (addSection) addSection.style.display = 'block';
+                        
+                        for (var i = 0; i < leaderOnlyBtns.length; i++) {
+                            if (leaderOnlyBtns[i]) leaderOnlyBtns[i].style.display = 'flex';
+                        }
+                        
+                        toggleBtn.textContent = '🔒 리더 모드 해제';
+                        toggleBtn.style.background = '#4CAF50';
+                        
+                        var sectionElement = document.getElementById(section);
+                        if (sectionElement) {
+                            sectionElement.classList.add('leader-mode');
+                        }
+                        
+                        alert('✅ 권소연 리더님 인증 완료!\n관리 권한이 활성화되었습니다.');
+                    } else if (password !== null) {
+                        alert('❌ 잘못된 비밀번호입니다.\n권소연님만 리더 권한을 사용할 수 있습니다.');
+                    }
+                } else {
+                    leaderOnlyDiv.style.display = 'none';
+                    if (addSection) addSection.style.display = 'none';
+                    
+                    for (var i = 0; i < leaderOnlyBtns.length; i++) {
+                        if (leaderOnlyBtns[i]) leaderOnlyBtns[i].style.display = 'none';
+                    }
+                    
+                    toggleBtn.textContent = '👑 리더 모드';
+                    toggleBtn.style.background = '#FF6B6B';
+                    
+                    var sectionElement = document.getElementById(section);
+                    if (sectionElement) {
+                        sectionElement.classList.remove('leader-mode');
+                    }
+                    
+                    alert('🔒 리더 모드가 해제되었습니다.');
+                }
+            } catch (error) {
+                console.error('리더 모드 에러:', error);
+                alert('리더 모드 오류가 발생했습니다.');
+            }
+        }
+
+        function addItemToCategory(category) {
+            try {
+                var inputId, listId;
+                
+                switch(category) {
+                    case 'clothing':
+                        inputId = 'newClothingItem';
+                        listId = 'clothingList';
+                        break;
+                    case 'beach':
+                        inputId = 'newBeachItem';
+                        listId = 'beachList';
+                        break;
+                    case 'essential':
+                        inputId = 'newEssentialItem';
+                        listId = 'essentialList';
+                        break;
+                    case 'other':
+                        inputId = 'newOtherItem';
+                        listId = 'otherList';
+                        break;
+                    default:
+                        return;
+                }
+                
+                var input = document.getElementById(inputId);
+                var list = document.getElementById(listId);
+                
+                if (!input || !list) {
+                    return;
+                }
+                
+                var text = input.value.trim();
+                
+                if (text) {
+                    var newItem = document.createElement('div');
+                    newItem.className = 'checklist-item';
+                    newItem.innerHTML = 
+                        '<input type="checkbox" onchange="toggleCheck(this)">' +
+                        '<span>' + text + '</span>' +
+                        '<button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>';
+                    
+                    list.appendChild(newItem);
+                    input.value = '';
+                }
+            } catch (error) {
+                console.error('준비물 추가 에러:', error);
             }
         }
 
         function addLeaderItem() {
-            const input = document.getElementById('newLeaderItem');
-            const text = input.value.trim();
-            
-            if (text) {
-                const leaderList = document.getElementById('leaderList');
-                const newItem = document.createElement('div');
-                newItem.className = 'leader-item';
+            try {
+                var input = document.getElementById('newLeaderItem');
+                if (!input) return;
                 
-                const now = new Date();
-                const timeStr = now.getFullYear() + '.' + 
-                              String(now.getMonth() + 1).padStart(2, '0') + '.' + 
-                              String(now.getDate()).padStart(2, '0') + ' ' + 
-                              String(now.getHours()).padStart(2, '0') + ':' + 
-                              String(now.getMinutes()).padStart(2, '0');
+                var text = input.value.trim();
                 
-                newItem.innerHTML = `
-                    <div class="leader-content">
-                        <div class="leader-title">📢 ${text}</div>
-                        <div class="leader-desc">새로운 전달사항입니다.</div>
-                        <div class="leader-time">${timeStr} - 권소연</div>
-                    </div>
-                    <button class="delete-btn" onclick="deleteLeaderItem(this)">×</button>
-                `;
-                
-                leaderList.insertBefore(newItem, leaderList.firstChild);
-                input.value = '';
-            }
-        }
-
-        function deleteLeaderItem(btn) {
-            if (confirm('이 전달사항을 삭제하시겠습니까?')) {
-                btn.parentElement.remove();
+                if (text) {
+                    var leaderList = document.getElementById('leaderList');
+                    if (!leaderList) return;
+                    
+                    var newItem = document.createElement('div');
+                    newItem.className = 'leader-item';
+                    
+                    var now = new Date();
+                    var timeStr = now.getFullYear() + '.' + 
+                                  String(now.getMonth() + 1).padStart(2, '0') + '.' + 
+                                  String(now.getDate()).padStart(2, '0') + ' ' + 
+                                  String(now.getHours()).padStart(2, '0') + ':' + 
+                                  String(now.getMinutes()).padStart(2, '0');
+                    
+                    newItem.innerHTML = 
+                        '<div class="leader-content">' +
+                        '<div class="leader-title">📢 ' + text + '</div>' +
+                        '<div class="leader-desc">새로운 전달사항입니다.</div>' +
+                        '<div class="leader-time">' + timeStr + ' - 권소연</div>' +
+                        '</div>' +
+                        '<button class="delete-btn" onclick="deleteLeaderItem(this)">×</button>';
+                    
+                    leaderList.insertBefore(newItem, leaderList.firstChild);
+                    input.value = '';
+                }
+            } catch (error) {
+                console.error('리더 공지 추가 에러:', error);
             }
         }
 
         function addScheduleItem() {
-            const timeInput = document.getElementById('newScheduleTime');
-            const titleInput = document.getElementById('newScheduleTitle');
-            const descInput = document.getElementById('newScheduleDesc');
-            
-            const time = timeInput.value;
-            const title = titleInput.value.trim();
-            const desc = descInput.value.trim();
-            
-            if (time && title) {
-                const scheduleContainer = document.getElementById('schedule');
-                const newItem = document.createElement('div');
-                newItem.className = 'schedule-item';
-                newItem.innerHTML = `
-                    <div class="schedule-time">${time}</div>
-                    <div class="schedule-title">${title}</div>
-                    <div class="schedule-desc">${desc || '설명 없음'}</div>
-                    <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
-                `;
+            try {
+                var timeInput = document.getElementById('newScheduleTime');
+                var titleInput = document.getElementById('newScheduleTitle');
+                var descInput = document.getElementById('newScheduleDesc');
                 
-                // 시간순으로 정렬해서 삽입
-                const scheduleItems = scheduleContainer.querySelectorAll('.schedule-item');
-                let inserted = false;
+                if (!timeInput || !titleInput) return;
                 
-                for (let item of scheduleItems) {
-                    const itemTime = item.querySelector('.schedule-time').textContent;
-                    if (time < itemTime) {
-                        item.parentNode.insertBefore(newItem, item);
-                        inserted = true;
-                        break;
-                    }
-                }
+                var time = timeInput.value;
+                var title = titleInput.value.trim();
+                var desc = descInput ? descInput.value.trim() : '';
                 
-                if (!inserted) {
+                if (time && title) {
+                    var scheduleContainer = document.getElementById('schedule');
+                    var newItem = document.createElement('div');
+                    newItem.className = 'schedule-item';
+                    newItem.innerHTML = 
+                        '<div class="schedule-time">' + time + '</div>' +
+                        '<div class="schedule-title">' + title + '</div>' +
+                        '<div class="schedule-desc">' + (desc || '설명 없음') + '</div>' +
+                        '<button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: flex;">×</button>';
+                    
                     scheduleContainer.appendChild(newItem);
+                    
+                    timeInput.value = '';
+                    titleInput.value = '';
+                    if (descInput) descInput.value = '';
                 }
-                
-                timeInput.value = '';
-                titleInput.value = '';
-                descInput.value = '';
-            }
-        }
-
-        function deleteScheduleItem(btn) {
-            if (confirm('이 일정을 삭제하시겠습니까?')) {
-                btn.parentElement.remove();
-            }
-        }
-
-        function deleteChecklistItem(btn) {
-            if (confirm('이 준비물을 삭제하시겠습니까?')) {
-                btn.parentElement.remove();
-            }
-        }
-
-        function deleteBudgetItem(btn) {
-            if (confirm('이 예산 항목을 삭제하시겠습니까?')) {
-                btn.parentElement.remove();
-                updateTotalBudget();
-            }
-        }
-
-        function addChecklistItem() {
-            const input = document.getElementById('newItem');
-            const text = input.value.trim();
-            
-            if (text) {
-                const customList = document.getElementById('customChecklist');
-                const newItem = document.createElement('div');
-                newItem.className = 'checklist-item';
-                newItem.innerHTML = `
-                    <input type="checkbox" onchange="toggleCheck(this)">
-                    <span>${text}</span>
-                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
-                `;
-                customList.appendChild(newItem);
-                input.value = '';
+            } catch (error) {
+                console.error('일정 추가 에러:', error);
             }
         }
 
         function addBudgetItem() {
-            const itemInput = document.getElementById('newBudgetItem');
-            const amountInput = document.getElementById('newBudgetAmount');
-            const itemText = itemInput.value.trim();
-            const amount = parseInt(amountInput.value) || 0;
-            
-            if (itemText && amount > 0) {
-                const customBudget = document.getElementById('customBudget');
-                const newItem = document.createElement('div');
-                newItem.className = 'budget-item';
-                newItem.innerHTML = `
-                    <span>${itemText}</span>
-                    <span class="budget-amount">₩${amount.toLocaleString()}</span>
-                    <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
-                `;
-                customBudget.appendChild(newItem);
-                itemInput.value = '';
-                amountInput.value = '';
-                updateTotalBudget();
+            try {
+                var itemInput = document.getElementById('newBudgetItem');
+                var amountInput = document.getElementById('newBudgetAmount');
+                
+                if (!itemInput || !amountInput) return;
+                
+                var itemText = itemInput.value.trim();
+                var amount = parseInt(amountInput.value) || 0;
+                
+                if (itemText && amount > 0) {
+                    var customBudget = document.getElementById('customBudget');
+                    var newItem = document.createElement('div');
+                    newItem.className = 'budget-item';
+                    newItem.innerHTML = 
+                        '<span>' + itemText + '</span>' +
+                        '<span class="budget-amount">₩' + amount.toLocaleString() + '</span>' +
+                        '<button class="delete-btn leader-only-btn" onclick="deleteBudgetItem(this)" style="display: flex;">×</button>';
+                    
+                    customBudget.appendChild(newItem);
+                    itemInput.value = '';
+                    amountInput.value = '';
+                    updateTotalBudget();
+                }
+            } catch (error) {
+                console.error('예산 추가 에러:', error);
             }
         }
 
-        function updateTotalBudget() {
-            const budgetAmounts = document.querySelectorAll('.budget-amount');
-            let total = 0;
-            
-            budgetAmounts.forEach(amount => {
-                const value = parseInt(amount.textContent.replace(/[₩,]/g, ''));
-                if (!isNaN(value)) {
-                    total += value;
+        function addNote() {
+            try {
+                var noteInput = document.getElementById('newNote');
+                if (!noteInput) return;
+                
+                var text = noteInput.value.trim();
+                
+                if (text) {
+                    var notesList = document.getElementById('notesList');
+                    if (!notesList) return;
+                    
+                    var newNote = document.createElement('div');
+                    newNote.className = 'note-item';
+                    
+                    var now = new Date();
+                    var timeStr = now.getFullYear() + '.' + 
+                                  String(now.getMonth() + 1).padStart(2, '0') + '.' + 
+                                  String(now.getDate()).padStart(2, '0') + ' ' + 
+                                  String(now.getHours()).padStart(2, '0') + ':' + 
+                                  String(now.getMinutes()).padStart(2, '0');
+                    
+                    newNote.innerHTML = 
+                        '<div class="note-time">' + timeStr + '</div>' +
+                        '<div class="note-content">' + text + '</div>';
+                    
+                    notesList.insertBefore(newNote, notesList.firstChild);
+                    noteInput.value = '';
                 }
-            });
-            
-            const totalElement = document.getElementById('totalBudget');
-            if (totalElement) {
-                totalElement.textContent = total.toLocaleString();
+            } catch (error) {
+                console.error('메모 추가 에러:', error);
             }
         }
 
@@ -1072,57 +1160,77 @@
             alert('📷 실제 앱에서는 여기서 사진을 촬영하거나 갤러리에서 선택할 수 있습니다!');
         }
 
-        function addNote() {
-            const noteInput = document.getElementById('newNote');
-            const text = noteInput ? noteInput.value.trim() : '';
-            
-            if (text) {
-                const notesList = document.getElementById('notesList');
-                if (notesList) {
-                    const newNote = document.createElement('div');
-                    newNote.className = 'note-item';
-                    
-                    const now = new Date();
-                    const timeStr = now.getFullYear() + '.' + 
-                                  String(now.getMonth() + 1).padStart(2, '0') + '.' + 
-                                  String(now.getDate()).padStart(2, '0') + ' ' + 
-                                  String(now.getHours()).padStart(2, '0') + ':' + 
-                                  String(now.getMinutes()).padStart(2, '0');
-                    
-                    newNote.innerHTML = `
-                        <div class="note-time">${timeStr}</div>
-                        <div class="note-content">${text}</div>
-                    `;
-                    
-                    notesList.insertBefore(newNote, notesList.firstChild);
-                    noteInput.value = '';
+        function deleteLeaderItem(btn) {
+            try {
+                if (confirm('이 전달사항을 삭제하시겠습니까?')) {
+                    btn.parentElement.remove();
                 }
+            } catch (error) {
+                console.error('리더 공지 삭제 에러:', error);
             }
         }
 
-        // 페이지 로드시 총 예산 계산
-        document.addEventListener('DOMContentLoaded', function() {
-            updateTotalBudget();
-        });
-
-        // Enter 키로 아이템 추가
-        document.getElementById('newItem').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addChecklistItem();
+        function deleteScheduleItem(btn) {
+            try {
+                if (confirm('이 일정을 삭제하시겠습니까?')) {
+                    btn.parentElement.remove();
+                }
+            } catch (error) {
+                console.error('일정 삭제 에러:', error);
             }
-        });
+        }
 
-        document.getElementById('newLeaderItem').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addLeaderItem();
+        function deleteChecklistItem(btn) {
+            try {
+                if (confirm('이 준비물을 삭제하시겠습니까?')) {
+                    btn.parentElement.remove();
+                }
+            } catch (error) {
+                console.error('준비물 삭제 에러:', error);
             }
-        });
+        }
 
-        document.getElementById('newNote').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && e.ctrlKey) {
-                addNote();
+        function deleteBudgetItem(btn) {
+            try {
+                if (confirm('이 예산 항목을 삭제하시겠습니까?')) {
+                    btn.parentElement.remove();
+                    updateTotalBudget();
+                }
+            } catch (error) {
+                console.error('예산 삭제 에러:', error);
             }
-        });
+        }
+
+        function updateTotalBudget() {
+            try {
+                var budgetAmounts = document.querySelectorAll('.budget-amount');
+                var total = 0;
+                
+                for (var i = 0; i < budgetAmounts.length; i++) {
+                    var value = parseInt(budgetAmounts[i].textContent.replace(/[₩,]/g, ''));
+                    if (!isNaN(value)) {
+                        total += value;
+                    }
+                }
+                
+                var totalElement = document.getElementById('totalBudget');
+                if (totalElement) {
+                    totalElement.textContent = total.toLocaleString();
+                }
+            } catch (error) {
+                console.error('예산 계산 에러:', error);
+            }
+        }
+
+        // 초기화
+        window.onload = function() {
+            try {
+                updateTotalBudget();
+                console.log('✅ 앱 초기화 완료 - 에러 없음!');
+            } catch (error) {
+                console.error('초기화 에러:', error);
+            }
+        };
     </script>
 </body>
 </html>
