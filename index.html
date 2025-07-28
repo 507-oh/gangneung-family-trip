@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>강릉 가족여행 2025.08.15-16</title>
+    <title>강릉 가족여행 
+           리더-권소연 
+           2025.08.15-16</title>
     <style>
         * {
             margin: 0;
@@ -301,6 +303,35 @@
             text-align: center;
         }
 
+        .leader-only {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .leader-toggle {
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .leader-toggle:hover {
+            background: #ff5252;
+        }
+
+        .leader-mode {
+            border: 2px solid #FF6B6B;
+            background: #ffebee;
+        }
+
         .info-value a {
             color: #2196F3 !important;
             text-decoration: none;
@@ -547,62 +578,71 @@
 
         <!-- 일정 탭 -->
         <div id="schedule" class="tab-content">
-            <div class="add-item">
-                <input type="time" id="newScheduleTime" style="width: 80px;">
-                <input type="text" id="newScheduleTitle" placeholder="일정 제목">
-                <input type="text" id="newScheduleDesc" placeholder="설명">
-                <button onclick="addScheduleItem()">추가</button>
+            <button class="leader-toggle" onclick="toggleLeaderMode('schedule')">👑 리더 모드</button>
+            
+            <div id="scheduleLeaderOnly" class="leader-only" style="display: none;">
+                <p>🔒 <strong>리더 전용 관리 모드</strong></p>
+                <p>일정 추가/삭제는 권소연님만 가능합니다</p>
+            </div>
+
+            <div id="scheduleAddSection" style="display: none;">
+                <div class="add-item">
+                    <input type="time" id="newScheduleTime" style="width: 80px;">
+                    <input type="text" id="newScheduleTitle" placeholder="일정 제목">
+                    <input type="text" id="newScheduleDesc" placeholder="설명">
+                    <button onclick="addScheduleItem()">추가</button>
+                </div>
             </div>
 
             <h3 style="margin-bottom: 15px; color: #2196F3;">📅 8월 15일 (금)</h3>
             
-            <div class="schedule-item">
+            <div class="schedule-item" id="schedule-item">
                 <div class="schedule-time">06:00</div>
                 <div class="schedule-title">렌트카 픽업</div>
                 <div class="schedule-desc">스타리아(D) 9인승 - 서울시 용산구 청파로 369</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">09:00</div>
                 <div class="schedule-title">출발 준비</div>
                 <div class="schedule-desc">짐 정리 및 차량 점검</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">10:00</div>
                 <div class="schedule-title">강릉으로 출발</div>
                 <div class="schedule-desc">약 3시간 소요 예상</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">13:00</div>
                 <div class="schedule-title">점심식사</div>
                 <div class="schedule-desc">강릉 맛집 또는 휴게소</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">15:00</div>
                 <div class="schedule-title">펜션 체크인</div>
                 <div class="schedule-desc">쉬어가는집펜션 도착</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">16:00</div>
                 <div class="schedule-title">경포해수욕장</div>
                 <div class="schedule-desc">해변 산책 및 물놀이</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">19:00</div>
                 <div class="schedule-title">펜션에서 저녁</div>
                 <div class="schedule-desc">바베큐 또는 배달음식</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <h3 style="margin: 20px 0 15px 0; color: #2196F3;">📅 8월 16일 (토)</h3>
@@ -611,42 +651,42 @@
                 <div class="schedule-time">08:00</div>
                 <div class="schedule-title">아침식사</div>
                 <div class="schedule-desc">펜션에서 간단한 조식</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">09:30</div>
                 <div class="schedule-title">오죽헌/시립박물관</div>
                 <div class="schedule-desc">강릉의 역사와 문화 체험</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">11:00</div>
                 <div class="schedule-title">체크아웃</div>
                 <div class="schedule-desc">짐 정리 및 펜션 퇴실</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">12:00</div>
                 <div class="schedule-title">점심 & 쇼핑</div>
                 <div class="schedule-desc">강릉 중앙시장 또는 맛집</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">15:00</div>
                 <div class="schedule-title">집으로 출발</div>
                 <div class="schedule-desc">즐거웠던 여행 마무리</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">20:00</div>
                 <div class="schedule-title">렌트카 반납</div>
                 <div class="schedule-desc">서울시 용산구 청파로 369 - 차량 점검 후 반납</div>
-                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteScheduleItem(this)" style="display: none;">×</button>
             </div>
         </div>
 
@@ -752,6 +792,13 @@
 
         <!-- 예산 탭 -->
         <div id="budget" class="tab-content">
+            <button class="leader-toggle" onclick="toggleLeaderMode('budget')">👑 리더 모드</button>
+            
+            <div id="budgetLeaderOnly" class="leader-only" style="display: none;">
+                <p>🔒 <strong>리더 전용 관리 모드</strong></p>
+                <p>예산 추가/삭제는 권소연님만 가능합니다</p>
+            </div>
+
             <div class="budget-total">
                 <h3>💰 총 예산</h3>
                 <div style="font-size: 24px; margin-top: 10px;">₩<span id="totalBudget">0</span></div>
@@ -760,43 +807,45 @@
             <div class="budget-item">
                 <span>숙박비 (이미 결제)</span>
                 <span class="budget-amount">₩754,500</span>
-                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteBudgetItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="budget-item">
                 <span>렌트카 (스타리아 9인승)</span>
                 <span class="budget-amount">₩688,000</span>
-                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteBudgetItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="budget-item">
                 <span>주유비</span>
                 <span class="budget-amount">₩150,000</span>
-                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteBudgetItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="budget-item">
                 <span>식비 (9명 × 2일)</span>
                 <span class="budget-amount">₩300,000</span>
-                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteBudgetItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="budget-item">
                 <span>관광비 & 기타</span>
                 <span class="budget-amount">₩150,000</span>
-                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteBudgetItem(this)" style="display: none;">×</button>
             </div>
 
             <div class="budget-item">
                 <span>쇼핑 & 간식</span>
                 <span class="budget-amount">₩100,000</span>
-                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
+                <button class="delete-btn leader-only-btn" onclick="deleteBudgetItem(this)" style="display: none;">×</button>
             </div>
 
-            <div class="add-item">
-                <input type="text" id="newBudgetItem" placeholder="항목명">
-                <input type="number" id="newBudgetAmount" placeholder="금액" style="width: 100px;">
-                <button onclick="addBudgetItem()">추가</button>
+            <div id="budgetAddSection" style="display: none;">
+                <div class="add-item">
+                    <input type="text" id="newBudgetItem" placeholder="항목명">
+                    <input type="number" id="newBudgetAmount" placeholder="금액" style="width: 100px;">
+                    <button onclick="addBudgetItem()">추가</button>
+                </div>
             </div>
 
             <div id="customBudget"></div>
@@ -1010,10 +1059,15 @@
             
             budgetAmounts.forEach(amount => {
                 const value = parseInt(amount.textContent.replace(/[₩,]/g, ''));
-                total += value;
+                if (!isNaN(value)) {
+                    total += value;
+                }
             });
             
-            document.getElementById('totalBudget').textContent = total.toLocaleString();
+            const totalElement = document.getElementById('totalBudget');
+            if (totalElement) {
+                totalElement.textContent = total.toLocaleString();
+            }
         }
 
         function addPhoto() {
@@ -1022,27 +1076,29 @@
 
         function addNote() {
             const noteInput = document.getElementById('newNote');
-            const text = noteInput.value.trim();
+            const text = noteInput ? noteInput.value.trim() : '';
             
             if (text) {
                 const notesList = document.getElementById('notesList');
-                const newNote = document.createElement('div');
-                newNote.className = 'note-item';
-                
-                const now = new Date();
-                const timeStr = now.getFullYear() + '.' + 
-                              String(now.getMonth() + 1).padStart(2, '0') + '.' + 
-                              String(now.getDate()).padStart(2, '0') + ' ' + 
-                              String(now.getHours()).padStart(2, '0') + ':' + 
-                              String(now.getMinutes()).padStart(2, '0');
-                
-                newNote.innerHTML = `
-                    <div class="note-time">${timeStr}</div>
-                    <div class="note-content">${text}</div>
-                `;
-                
-                notesList.insertBefore(newNote, notesList.firstChild);
-                noteInput.value = '';
+                if (notesList) {
+                    const newNote = document.createElement('div');
+                    newNote.className = 'note-item';
+                    
+                    const now = new Date();
+                    const timeStr = now.getFullYear() + '.' + 
+                                  String(now.getMonth() + 1).padStart(2, '0') + '.' + 
+                                  String(now.getDate()).padStart(2, '0') + ' ' + 
+                                  String(now.getHours()).padStart(2, '0') + ':' + 
+                                  String(now.getMinutes()).padStart(2, '0');
+                    
+                    newNote.innerHTML = `
+                        <div class="note-time">${timeStr}</div>
+                        <div class="note-content">${text}</div>
+                    `;
+                    
+                    notesList.insertBefore(newNote, notesList.firstChild);
+                    noteInput.value = '';
+                }
             }
         }
 
