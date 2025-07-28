@@ -1,89 +1,4 @@
-function addLeaderItem() {
-            const input = document.getElementById('newLeaderItem');
-            const text = input.value.trim();
-            
-            if (text) {
-                const leaderList = document.getElementById('leaderList');
-                const newItem = document.createElement('div');
-                newItem.className = 'leader-item';
-                
-                const now = new Date();
-                const timeStr = now.getFullYear() + '.' + 
-                              String(now.getMonth() + 1).padStart(2, '0') + '.' + 
-                              String(now.getDate()).padStart(2, '0') + ' ' + 
-                              String(now.getHours()).padStart(2, '0') + ':' + 
-                              String(now.getMinutes()).padStart(2, '0');
-                
-                newItem.innerHTML = `
-                    <div class="leader-content">
-                        <div class="leader-title">📢 ${text}</div>
-                        <div class="leader-desc">새로운 전달사항입니다.</div>
-                        <div class="leader-time">${timeStr} - 권소연</div>
-                    </div>
-                    <button class="delete-btn" onclick="deleteLeaderItem(this)">×</button>
-                `;
-                
-                leaderList.insertBefore(newItem, leaderList.firstChild);
-                input.value = '';
-            }
-        }
-
-        function deleteLeaderItem(btn) {
-            if (confirm('이 전달사항을 삭제하시겠습니까?')) {
-                btn.parentElement.remove();
-            }
-        }
-
-        function addScheduleItem() {
-            const timeInput = document.getElementById('newScheduleTime');
-            const titleInput = document.getElementById('newScheduleTitle');
-            const descInput = document.getElementById('newScheduleDesc');
-            
-            const time = timeInput.value;
-            const title = titleInput.value.trim();
-            const desc = descInput.value.trim();
-            
-            if (time && title) {
-                const scheduleContainer = document.getElementById('schedule');
-                const newItem = document.createElement('div');
-                newItem.className = 'schedule-item';
-                newItem.innerHTML = `
-                    <div class="schedule-time">${time}</div>
-                    <div class="schedule-title">${title}</div>
-                    <div class="schedule-desc">${desc || '설명 없음'}</div>
-                    <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
-                `;
-                
-                // 시간순으로 정렬해서 삽입
-                const scheduleItems = scheduleContainer.querySelectorAll('.schedule-item');
-                let inserted = false;
-                
-                for (let item of scheduleItems) {
-                    const itemTime = item.querySelector('.schedule-time').textContent;
-                    if (time < itemTime) {
-                        item.parentNode.insertBefore(newItem, item);
-                        inserted = true;
-                        break;
-                    }
-                }
-                
-                if (!inserted) {
-                    scheduleContainer.appendChild(newItem);
-                }
-                
-                timeInput.value = '';
-                titleInput.value = '';
-                descInput.value = '';
-            }
-        }
-
-        function deleteScheduleItem(btn) {
-            if (confirm('이 일정을 삭제하시겠습니까?')) {
-                btn.parentElement.remove();
-            }
-        }
-
-        function deleteChecklistItem(btn) {<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -96,13 +11,33 @@ function addLeaderItem() {
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            background: #ffffff !important;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff !important;
+            min-height: 100vh;
+            color: #333;
+            position: relative;
+            z-index: 1;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: -1;
         }
 
         .container {
@@ -112,7 +47,8 @@ function addLeaderItem() {
             min-height: 100vh;
             position: relative;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            z-index: 9999;
+            z-index: 999;
+            border: 1px solid #ffffff;
         }
 
         .header {
@@ -121,6 +57,7 @@ function addLeaderItem() {
             padding: 20px;
             text-align: center;
             position: relative;
+            z-index: 1000;
         }
 
         .header h1 {
@@ -137,13 +74,15 @@ function addLeaderItem() {
             display: flex;
             background: #f5f5f5;
             border-bottom: 1px solid #ddd;
+            z-index: 1000;
+            position: relative;
         }
 
         .nav-tab {
             flex: 1;
             padding: 15px 10px;
             text-align: center;
-            background: none;
+            background: #f5f5f5;
             border: none;
             cursor: pointer;
             font-size: 12px;
@@ -152,7 +91,7 @@ function addLeaderItem() {
         }
 
         .nav-tab.active {
-            background: white;
+            background: #ffffff;
             color: #4CAF50;
             border-bottom: 2px solid #4CAF50;
         }
@@ -161,10 +100,14 @@ function addLeaderItem() {
             display: none;
             padding: 20px;
             min-height: calc(100vh - 160px);
+            background: #ffffff !important;
+            position: relative;
+            z-index: 1000;
         }
 
         .tab-content.active {
             display: block;
+            background: #ffffff !important;
         }
 
         .info-card {
@@ -197,6 +140,8 @@ function addLeaderItem() {
             margin-bottom: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border-left: 4px solid #2196F3;
+            position: relative;
+            padding-right: 35px;
         }
 
         .schedule-time {
@@ -224,6 +169,8 @@ function addLeaderItem() {
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
+            position: relative;
+            padding-right: 35px;
         }
 
         .checklist-item input[type="checkbox"] {
@@ -267,6 +214,8 @@ function addLeaderItem() {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            padding-right: 35px;
         }
 
         .budget-amount {
@@ -365,6 +314,11 @@ function addLeaderItem() {
             color: #f44336;
         }
 
+        .contact-number {
+            color: #333;
+            margin-top: 3px;
+        }
+
         .leader-item {
             background: white;
             border-radius: 10px;
@@ -417,21 +371,6 @@ function addLeaderItem() {
 
         .delete-btn:hover {
             background: #cc0000;
-        }
-
-        .schedule-item {
-            position: relative;
-            padding-right: 35px;
-        }
-
-        .checklist-item {
-            position: relative;
-            padding-right: 35px;
-        }
-
-        .budget-item {
-            position: relative;
-            padding-right: 35px;
         }
     </style>
 </head>
@@ -867,6 +806,91 @@ function addLeaderItem() {
                 item.classList.add('checked');
             } else {
                 item.classList.remove('checked');
+            }
+        }
+
+        function addLeaderItem() {
+            const input = document.getElementById('newLeaderItem');
+            const text = input.value.trim();
+            
+            if (text) {
+                const leaderList = document.getElementById('leaderList');
+                const newItem = document.createElement('div');
+                newItem.className = 'leader-item';
+                
+                const now = new Date();
+                const timeStr = now.getFullYear() + '.' + 
+                              String(now.getMonth() + 1).padStart(2, '0') + '.' + 
+                              String(now.getDate()).padStart(2, '0') + ' ' + 
+                              String(now.getHours()).padStart(2, '0') + ':' + 
+                              String(now.getMinutes()).padStart(2, '0');
+                
+                newItem.innerHTML = `
+                    <div class="leader-content">
+                        <div class="leader-title">📢 ${text}</div>
+                        <div class="leader-desc">새로운 전달사항입니다.</div>
+                        <div class="leader-time">${timeStr} - 권소연</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteLeaderItem(this)">×</button>
+                `;
+                
+                leaderList.insertBefore(newItem, leaderList.firstChild);
+                input.value = '';
+            }
+        }
+
+        function deleteLeaderItem(btn) {
+            if (confirm('이 전달사항을 삭제하시겠습니까?')) {
+                btn.parentElement.remove();
+            }
+        }
+
+        function addScheduleItem() {
+            const timeInput = document.getElementById('newScheduleTime');
+            const titleInput = document.getElementById('newScheduleTitle');
+            const descInput = document.getElementById('newScheduleDesc');
+            
+            const time = timeInput.value;
+            const title = titleInput.value.trim();
+            const desc = descInput.value.trim();
+            
+            if (time && title) {
+                const scheduleContainer = document.getElementById('schedule');
+                const newItem = document.createElement('div');
+                newItem.className = 'schedule-item';
+                newItem.innerHTML = `
+                    <div class="schedule-time">${time}</div>
+                    <div class="schedule-title">${title}</div>
+                    <div class="schedule-desc">${desc || '설명 없음'}</div>
+                    <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                `;
+                
+                // 시간순으로 정렬해서 삽입
+                const scheduleItems = scheduleContainer.querySelectorAll('.schedule-item');
+                let inserted = false;
+                
+                for (let item of scheduleItems) {
+                    const itemTime = item.querySelector('.schedule-time').textContent;
+                    if (time < itemTime) {
+                        item.parentNode.insertBefore(newItem, item);
+                        inserted = true;
+                        break;
+                    }
+                }
+                
+                if (!inserted) {
+                    scheduleContainer.appendChild(newItem);
+                }
+                
+                timeInput.value = '';
+                titleInput.value = '';
+                descInput.value = '';
+            }
+        }
+
+        function deleteScheduleItem(btn) {
+            if (confirm('이 일정을 삭제하시겠습니까?')) {
+                btn.parentElement.remove();
             }
         }
 
