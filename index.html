@@ -1,4 +1,89 @@
-<!DOCTYPE html>
+function addLeaderItem() {
+            const input = document.getElementById('newLeaderItem');
+            const text = input.value.trim();
+            
+            if (text) {
+                const leaderList = document.getElementById('leaderList');
+                const newItem = document.createElement('div');
+                newItem.className = 'leader-item';
+                
+                const now = new Date();
+                const timeStr = now.getFullYear() + '.' + 
+                              String(now.getMonth() + 1).padStart(2, '0') + '.' + 
+                              String(now.getDate()).padStart(2, '0') + ' ' + 
+                              String(now.getHours()).padStart(2, '0') + ':' + 
+                              String(now.getMinutes()).padStart(2, '0');
+                
+                newItem.innerHTML = `
+                    <div class="leader-content">
+                        <div class="leader-title">📢 ${text}</div>
+                        <div class="leader-desc">새로운 전달사항입니다.</div>
+                        <div class="leader-time">${timeStr} - 권소연</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteLeaderItem(this)">×</button>
+                `;
+                
+                leaderList.insertBefore(newItem, leaderList.firstChild);
+                input.value = '';
+            }
+        }
+
+        function deleteLeaderItem(btn) {
+            if (confirm('이 전달사항을 삭제하시겠습니까?')) {
+                btn.parentElement.remove();
+            }
+        }
+
+        function addScheduleItem() {
+            const timeInput = document.getElementById('newScheduleTime');
+            const titleInput = document.getElementById('newScheduleTitle');
+            const descInput = document.getElementById('newScheduleDesc');
+            
+            const time = timeInput.value;
+            const title = titleInput.value.trim();
+            const desc = descInput.value.trim();
+            
+            if (time && title) {
+                const scheduleContainer = document.getElementById('schedule');
+                const newItem = document.createElement('div');
+                newItem.className = 'schedule-item';
+                newItem.innerHTML = `
+                    <div class="schedule-time">${time}</div>
+                    <div class="schedule-title">${title}</div>
+                    <div class="schedule-desc">${desc || '설명 없음'}</div>
+                    <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
+                `;
+                
+                // 시간순으로 정렬해서 삽입
+                const scheduleItems = scheduleContainer.querySelectorAll('.schedule-item');
+                let inserted = false;
+                
+                for (let item of scheduleItems) {
+                    const itemTime = item.querySelector('.schedule-time').textContent;
+                    if (time < itemTime) {
+                        item.parentNode.insertBefore(newItem, item);
+                        inserted = true;
+                        break;
+                    }
+                }
+                
+                if (!inserted) {
+                    scheduleContainer.appendChild(newItem);
+                }
+                
+                timeInput.value = '';
+                titleInput.value = '';
+                descInput.value = '';
+            }
+        }
+
+        function deleteScheduleItem(btn) {
+            if (confirm('이 일정을 삭제하시겠습니까?')) {
+                btn.parentElement.remove();
+            }
+        }
+
+        function deleteChecklistItem(btn) {<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -277,9 +362,73 @@
             color: #f44336;
         }
 
-        .contact-number {
+        .leader-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #FF6B6B;
+            position: relative;
+        }
+
+        .leader-content {
+            padding-right: 30px;
+        }
+
+        .leader-title {
+            font-weight: bold;
+            color: #FF6B6B;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .leader-desc {
             color: #333;
-            margin-top: 3px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .leader-time {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        .schedule-item {
+            position: relative;
+            padding-right: 35px;
+        }
+
+        .checklist-item {
+            position: relative;
+            padding-right: 35px;
+        }
+
+        .budget-item {
+            position: relative;
+            padding-right: 35px;
         }
     </style>
 </head>
@@ -292,6 +441,7 @@
 
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="showTab('info')">숙소정보</button>
+            <button class="nav-tab" onclick="showTab('leader')">리더공지</button>
             <button class="nav-tab" onclick="showTab('schedule')">일정</button>
             <button class="nav-tab" onclick="showTab('checklist')">준비물</button>
             <button class="nav-tab" onclick="showTab('budget')">예산</button>
@@ -378,50 +528,106 @@
             </div>
         </div>
 
+        <!-- 리더 전달사항 탭 -->
+        <div id="leader" class="tab-content">
+            <div class="info-card">
+                <h3 style="margin-bottom: 15px; color: #FF6B6B;">👑 여행 리더: 권 소연</h3>
+                <p style="color: #666; margin-bottom: 15px;">가족 여행을 위한 중요 공지사항을 관리합니다.</p>
+            </div>
+
+            <div class="add-item">
+                <input type="text" id="newLeaderItem" placeholder="전달사항 추가...">
+                <button onclick="addLeaderItem()">추가</button>
+            </div>
+
+            <div id="leaderList">
+                <div class="leader-item">
+                    <div class="leader-content">
+                        <div class="leader-title">📍 출발 시간 확정</div>
+                        <div class="leader-desc">오전 10시까지 렌트카 픽업 장소에서 만나주세요!</div>
+                        <div class="leader-time">2025.08.14 20:30 - 권소연</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteLeaderItem(this)">×</button>
+                </div>
+                
+                <div class="leader-item">
+                    <div class="leader-content">
+                        <div class="leader-title">🏖️ 해변 준비물 체크</div>
+                        <div class="leader-desc">썬크림, 비치타올은 각자 준비해주시고, 파라솔은 제가 준비했습니다.</div>
+                        <div class="leader-time">2025.08.14 18:00 - 권소연</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteLeaderItem(this)">×</button>
+                </div>
+                
+                <div class="leader-item">
+                    <div class="leader-content">
+                        <div class="leader-title">💰 예산 안내</div>
+                        <div class="leader-desc">식비는 1인당 5만원 예상하고 있습니다. 현금 준비해주세요!</div>
+                        <div class="leader-time">2025.08.14 15:20 - 권소연</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteLeaderItem(this)">×</button>
+                </div>
+            </div>
+        </div>
+
         <!-- 일정 탭 -->
         <div id="schedule" class="tab-content">
+            <div class="add-item">
+                <input type="time" id="newScheduleTime" style="width: 80px;">
+                <input type="text" id="newScheduleTitle" placeholder="일정 제목">
+                <input type="text" id="newScheduleDesc" placeholder="설명">
+                <button onclick="addScheduleItem()">추가</button>
+            </div>
+
             <h3 style="margin-bottom: 15px; color: #2196F3;">📅 8월 15일 (금)</h3>
             
             <div class="schedule-item">
                 <div class="schedule-time">06:00</div>
                 <div class="schedule-title">렌트카 픽업</div>
                 <div class="schedule-desc">스타리아(D) 9인승 - 서울시 용산구 청파로 369</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">09:00</div>
                 <div class="schedule-title">출발 준비</div>
                 <div class="schedule-desc">짐 정리 및 차량 점검</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">10:00</div>
                 <div class="schedule-title">강릉으로 출발</div>
                 <div class="schedule-desc">약 3시간 소요 예상</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">13:00</div>
                 <div class="schedule-title">점심식사</div>
                 <div class="schedule-desc">강릉 맛집 또는 휴게소</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">15:00</div>
                 <div class="schedule-title">펜션 체크인</div>
                 <div class="schedule-desc">쉬어가는집펜션 도착</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">16:00</div>
                 <div class="schedule-title">경포해수욕장</div>
                 <div class="schedule-desc">해변 산책 및 물놀이</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">19:00</div>
                 <div class="schedule-title">펜션에서 저녁</div>
                 <div class="schedule-desc">바베큐 또는 배달음식</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <h3 style="margin: 20px 0 15px 0; color: #2196F3;">📅 8월 16일 (토)</h3>
@@ -430,36 +636,42 @@
                 <div class="schedule-time">08:00</div>
                 <div class="schedule-title">아침식사</div>
                 <div class="schedule-desc">펜션에서 간단한 조식</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">09:30</div>
                 <div class="schedule-title">오죽헌/시립박물관</div>
                 <div class="schedule-desc">강릉의 역사와 문화 체험</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">11:00</div>
                 <div class="schedule-title">체크아웃</div>
                 <div class="schedule-desc">짐 정리 및 펜션 퇴실</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">12:00</div>
                 <div class="schedule-title">점심 & 쇼핑</div>
                 <div class="schedule-desc">강릉 중앙시장 또는 맛집</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">15:00</div>
                 <div class="schedule-title">집으로 출발</div>
                 <div class="schedule-desc">즐거웠던 여행 마무리</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
 
             <div class="schedule-item">
                 <div class="schedule-time">20:00</div>
                 <div class="schedule-title">렌트카 반납</div>
                 <div class="schedule-desc">서울시 용산구 청파로 369 - 차량 점검 후 반납</div>
+                <button class="delete-btn" onclick="deleteScheduleItem(this)">×</button>
             </div>
         </div>
 
@@ -474,54 +686,66 @@
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>여름옷 (2일치)</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>속옷 & 양말</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>잠옷</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>수영복</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
 
             <h4 style="margin: 20px 0 10px 0; color: #4CAF50;">🏖️ 해변용품</h4>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>썬크림</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>선글라스</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>비치타올</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>물놀이 용품</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
 
             <h4 style="margin: 20px 0 10px 0; color: #4CAF50;">💊 생필품</h4>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>세면용품</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>상비약</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>핸드폰 충전기</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" onchange="toggleCheck(this)">
                 <span>카메라</span>
+                <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
             </div>
 
             <div id="customChecklist"></div>
@@ -537,31 +761,37 @@
             <div class="budget-item">
                 <span>숙박비 (이미 결제)</span>
                 <span class="budget-amount">₩754,500</span>
+                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
             </div>
 
             <div class="budget-item">
                 <span>렌트카 (스타리아 9인승)</span>
                 <span class="budget-amount">₩688,000</span>
+                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
             </div>
 
             <div class="budget-item">
                 <span>주유비</span>
                 <span class="budget-amount">₩150,000</span>
+                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
             </div>
 
             <div class="budget-item">
                 <span>식비 (9명 × 2일)</span>
                 <span class="budget-amount">₩300,000</span>
+                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
             </div>
 
             <div class="budget-item">
                 <span>관광비 & 기타</span>
                 <span class="budget-amount">₩150,000</span>
+                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
             </div>
 
             <div class="budget-item">
                 <span>쇼핑 & 간식</span>
                 <span class="budget-amount">₩100,000</span>
+                <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
             </div>
 
             <div class="add-item">
@@ -637,6 +867,19 @@
             }
         }
 
+        function deleteChecklistItem(btn) {
+            if (confirm('이 준비물을 삭제하시겠습니까?')) {
+                btn.parentElement.remove();
+            }
+        }
+
+        function deleteBudgetItem(btn) {
+            if (confirm('이 예산 항목을 삭제하시겠습니까?')) {
+                btn.parentElement.remove();
+                updateTotalBudget();
+            }
+        }
+
         function addChecklistItem() {
             const input = document.getElementById('newItem');
             const text = input.value.trim();
@@ -648,6 +891,7 @@
                 newItem.innerHTML = `
                     <input type="checkbox" onchange="toggleCheck(this)">
                     <span>${text}</span>
+                    <button class="delete-btn" onclick="deleteChecklistItem(this)">×</button>
                 `;
                 customList.appendChild(newItem);
                 input.value = '';
@@ -667,6 +911,7 @@
                 newItem.innerHTML = `
                     <span>${itemText}</span>
                     <span class="budget-amount">₩${amount.toLocaleString()}</span>
+                    <button class="delete-btn" onclick="deleteBudgetItem(this)">×</button>
                 `;
                 customBudget.appendChild(newItem);
                 itemInput.value = '';
@@ -726,6 +971,12 @@
         document.getElementById('newItem').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 addChecklistItem();
+            }
+        });
+
+        document.getElementById('newLeaderItem').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addLeaderItem();
             }
         });
 
